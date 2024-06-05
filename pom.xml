@@ -24,3 +24,33 @@
     </execution>
   </executions>
 </plugin>
+....
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-war-plugin</artifactId>
+  <configuration>
+    <archive>
+      <manifest>
+        <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+      </manifest>
+      <manifestEntries>
+        <Built-By>${user.name}</Built-By>
+          <Built-On>${maven.build.timestamp}</Built-On>
+          <Implementation-vendor>${project.organization.name}</Implementation-vendor>
+          <Git-Branch>${git.info.branch}</Git-Branch>
+          <Git-Revision>${git.info.revision}</Git-Revision>
+          <Git-Repository>${git.info.repository}</Git-Repository>
+        </manifestEntries>
+    </archive>
+    <packagingExcludes>WEB-INF/classes/environment*.ts</packagingExcludes>
+      <webResources>
+        <resource>
+          <directory>${ng.dist}</directory>
+        </resource>
+        <resource>
+          <directory>ng/dist/node_modules_package_jsons</directory>
+          <targetPath>WEB-INF/node_modules_package_jsons</targetPath>
+        </resource>
+      </webResources>
+    </configuration>
+</plugin>
